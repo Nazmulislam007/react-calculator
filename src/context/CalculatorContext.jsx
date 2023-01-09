@@ -1,23 +1,17 @@
-import React, { createContext, useContext, useReducer } from "react";
-import reducer from "./reducer";
+import React, { createContext, useContext, useMemo, useReducer } from 'react';
+import reducer from './reducer';
 
 const calculatorContext = createContext();
 
-export const useCalc = () => {
-  return useContext(calculatorContext);
-};
+export const useCalc = () => useContext(calculatorContext);
 
 export default function CalculatorContext({ children }) {
-  const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(
-    reducer,
-    {}
-  );
+    const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(reducer, {});
 
-  return (
-    <calculatorContext.Provider
-      value={{ currentOperand, previousOperand, operation, dispatch }}
-    >
-      {children}
-    </calculatorContext.Provider>
-  );
+    const value = useMemo(
+        () => ({ currentOperand, previousOperand, operation, dispatch }),
+        [currentOperand, operation, previousOperand]
+    );
+
+    return <calculatorContext.Provider value={value}>{children}</calculatorContext.Provider>;
 }
