@@ -10,7 +10,7 @@ const INTEGER_FORMATE = new Intl.NumberFormat('en-us', {
 });
 
 function formatOperand(operand) {
-    if (operand == null) return;
+    if (operand == null || Number.isNaN(operand)) return;
     const [integer, decimal] = operand.split('.');
     if (decimal == null) return INTEGER_FORMATE.format(integer);
     return `${INTEGER_FORMATE.format(integer)}.${decimal}`;
@@ -27,15 +27,15 @@ function App() {
                 </div>
                 <div className="current-operand">{formatOperand(currentOperand)}</div>
             </div>
-            <button
-                type="button"
-                className="span-two"
-                onClick={() => dispatch({ type: ActionType.CLEAR })}
-            >
+            <button type="button" onClick={() => dispatch({ type: ActionType.CLEAR })}>
                 AC
             </button>
+
             <button type="button" onClick={() => dispatch({ type: ActionType.DEL_SINGLE_DIGITS })}>
                 DEL
+            </button>
+            <button type="button" onClick={() => dispatch({ type: ActionType.PERCENTAGE })}>
+                %
             </button>
             <OperationBtn digit="÷" dispatch={dispatch} />
             <DigitBtn dispatch={dispatch} digit="1" />

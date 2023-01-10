@@ -94,6 +94,11 @@ const reducer = (state, { type, payload }) => {
                 overwrite: true,
                 currentOperand: evaluate(state),
             };
+        case ActionType.PERCENTAGE:
+            return {
+                ...state,
+                currentOperand: (state.currentOperand / 100).toString(),
+            };
         default:
             return state;
     }

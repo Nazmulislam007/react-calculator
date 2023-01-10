@@ -4,6 +4,7 @@ const ActionType = {
     CHOOSE_OPERATION: 'choose-operation',
     EVALUATE: 'evaluate',
     CLEAR: 'clear-all',
+    PERCENTAGE: 'percentage',
 };
 
 export default ActionType;
